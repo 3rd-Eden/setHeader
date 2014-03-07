@@ -1,0 +1,35 @@
+{
+  "name": "setheader",
+  "version": "0.0.1",
+  "description": "Protect headers from being overridden before they are written to response.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha $(find test -name '*.test.js')"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3rd-Eden/setHeader"
+  },
+  "keywords": [
+    "setHeader",
+    "headers",
+    "sticky-headers",
+    "protected-header",
+    "protect"
+  ],
+  "author": "Arnout Kazemier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3rd-Eden/setHeader/issues"
+  },
+  "homepage": "https://github.com/3rd-Eden/setHeader",
+  "dependencies": {
+    "debug": "0.7.x"
+  },
+  "devDependencies": {
+    "pre-commit": "0.0.x",
+    "chai": "1.9.x",
+    "mocha": "1.17.x",
+    "request": "2.34.x"
+  }
+}
