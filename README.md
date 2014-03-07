@@ -1,12 +1,14 @@
 # setHeader
 
+[![Build Status](https://travis-ci.org/3rd-Eden/setHeader.png?branch=master)](https://travis-ci.org/3rd-Eden/setHeader)
+
 This module is an alternate way of setting headers in your node applications.
 Node doesn't have any protection or ways to prevent your previously set headers
 from being overridden. So just because you set a `X-Powered-By` or
 `X-Frame-Options` header it doesn't mean that this exact header will eventually
 be written to the response. It could be that you have a middleware layer that
 silently modified the header. This module attempts to prevent that from
-happening by making the set property readonly.
+happening by making the set property `readOnly`.
 
 ## Installation
 
@@ -28,6 +30,8 @@ var setHeader = require('setheader');
 //
 require('http').createServer(function (req, res) {
   setHeader(res, 'X-Frame-Options', 'DENY');
+
+  res.end('(\/)(;,,;)(\/)');
 }).listen(8080);
 ```
 
