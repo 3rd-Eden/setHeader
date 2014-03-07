@@ -15,16 +15,33 @@ var debug = require('debug')('setHeader');
  * @api public
  */
 module.exports = function setHeader(res, name, value) {
-  if (!res || !name || !value || res._header) return false;
+  if (!res || !name || !value || res._header) {
+    return false;
+  }
 
+  var key = name.toLowerCase();
+
+  //
+  // Delegate the header setting magic first to the default setHeader method as
+  // it can also be used to remove automatically injected headers.
+  //
   res.setHeader(name, value);
+
+  //
+  // Prevent thrown errors when we want to set the same header again using our
+  // own `setHeader` method.
+  //
+  if (!Object.getOwnPropertyDescriptor(res._headers, key).configurable) {
+    return false;
+  }
 
   //
   // Internally, the `res.setHeader` stores the lowercase name and it's value in
   // a private `_headers` object. We're going to override the value that got set
   // using the Object.defineProperty so nobody can set the same header again.
   //
-  Object.defineProperty(res._headers, name.toLowerCase(), {
+  Object.defineProperty(res._headers, key, {
+    configurable: false,
     enumerable: true,
 
     //

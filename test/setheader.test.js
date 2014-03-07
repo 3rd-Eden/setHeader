@@ -28,6 +28,10 @@ describe('setHeader', function () {
       res.setHeader('Foo', 'bar');
       expect(res.getHeader('Foo')).to.equal('baz');
 
+      // set
+      setHeader(res, 'Foo', 'bazz');
+      expect(res.getHeader('Foo')).to.equal('baz');
+
       res.end('foo');
     }), connect = ++port;
 
