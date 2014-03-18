@@ -31,7 +31,9 @@ module.exports = function setHeader(res, name, value) {
   // Prevent thrown errors when we want to set the same header again using our
   // own `setHeader` method.
   //
-  if (!Object.getOwnPropertyDescriptor(res._headers, key).configurable) {
+  var described = Object.getOwnPropertyDescriptor(res._headers, key);
+
+  if (described && !described.configurable) {
     return false;
   }
 
