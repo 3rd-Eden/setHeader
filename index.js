@@ -28,7 +28,18 @@ module.exports = function setHeader(res, name, value) {
   res.setHeader(name, value);
 
   var symbols = (typeof Object.getOwnPropertySymbols == "function" ? Object.getOwnPropertySymbols(res) : []);
-  var symbol  = (symbols.length === 1 ? symbols[0] : "_headers");
+  var symbol;
+
+  if (symbols.length) {
+    for (var i = 0; i < symbols.length; i++) {
+      if (String(symbols[i]) === 'Symbol(outHeadersKey)') {
+        symbol = symbols[i];
+        break;
+      }
+    }
+  } else {
+    symbol = "_headers";
+  }
 
   //
   // Prevent thrown errors when we want to set the same header again using our
@@ -61,7 +72,7 @@ module.exports = function setHeader(res, name, value) {
     //
     set: function set(val) {
       debug('attempt to override header %s:%s with %s', name, value, val);
-      return (symbols.length == 1 ? [ key, value ] : value);
+      return value;
     }
   });
 
