@@ -2,35 +2,32 @@ describe('setHeader', function () {
   'use strict';
 
   var request = require('request')
-    , setHeader = require('../')
+    , assume = require('assume')
+    , setHeader = require('./')
     , http = require('http')
-    , chai = require('chai')
-    , expect = chai.expect
     , port = 9000;
 
-  chai.config.includeStack = true;
-
   it('is exported as function', function () {
-    expect(setHeader).to.be.a('function');
+    assume(setHeader).to.be.a('function');
   });
 
   it('prevents header from being overridden', function (done) {
     var server = http.createServer(function (req, res) {
       // control
       res.setHeader('Foo', 'bar');
-      expect(res.getHeader('Foo')).to.equal('bar');
+      assume(res.getHeader('Foo')).to.equal('bar');
 
       // set
       setHeader(res, 'Foo', 'baz');
-      expect(res.getHeader('Foo')).to.equal('baz');
+      assume(res.getHeader('Foo')).to.equal('baz');
 
       // ensure no change
       res.setHeader('Foo', 'bar');
-      expect(res.getHeader('Foo')).to.equal('baz');
+      assume(res.getHeader('Foo')).to.equal('baz');
 
       // set
       setHeader(res, 'Foo', 'bazz');
-      expect(res.getHeader('Foo')).to.equal('baz');
+      assume(res.getHeader('Foo')).to.equal('baz');
 
       res.end('foo');
     }), connect = ++port;
@@ -41,7 +38,7 @@ describe('setHeader', function () {
 
         if (err) return done(err);
 
-        expect(res.headers.foo).to.equal('baz');
+        assume(res.headers.foo).to.equal('baz');
         done();
       });
     });

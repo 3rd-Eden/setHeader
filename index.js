@@ -1,6 +1,6 @@
 'use strict';
 
-var debug = require('debug')('setHeader');
+var debug = require('diagnostics')('setHeader');
 
 /**
  * This code mimics the internals of the setHeader methods that is found in the

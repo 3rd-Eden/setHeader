@@ -4,7 +4,7 @@
   "description": "Protect headers from being overridden before they are written to response.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha $(find test -name '*.test.js')"
+    "test": "mocha test.js"
   },
   "repository": {
     "type": "git",
@@ -24,12 +24,12 @@
   },
   "homepage": "https://github.com/3rd-Eden/setHeader",
   "dependencies": {
-    "debug": "3.1.x"
+    "diagnostics": "1.x.x"
   },
   "devDependencies": {
-    "pre-commit": "1.2.x",
-    "chai": "4.1.x",
-    "mocha": "5.0.x",
-    "request": "2.83.x"
+    "assume": "^2.1.0",
+    "mocha": "5.x.x",
+    "pre-commit": "1.x.x",
+    "request": "2.x.x"
   }
 }
