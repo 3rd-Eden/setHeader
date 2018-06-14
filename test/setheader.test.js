@@ -8,7 +8,7 @@ describe('setHeader', function () {
     , expect = chai.expect
     , port = 9000;
 
-  chai.Assertion.includeStack = true;
+  chai.config.includeStack = true;
 
   it('is exported as function', function () {
     expect(setHeader).to.be.a('function');

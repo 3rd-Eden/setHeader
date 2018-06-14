@@ -27,11 +27,25 @@ module.exports = function setHeader(res, name, value) {
   //
   res.setHeader(name, value);
 
+  var symbols = (typeof Object.getOwnPropertySymbols == "function" ? Object.getOwnPropertySymbols(res) : []);
+  var symbol;
+
+  if (symbols.length) {
+    for (var i = 0; i < symbols.length; i++) {
+      if (String(symbols[i]) === 'Symbol(outHeadersKey)') {
+        symbol = symbols[i];
+        break;
+      }
+    }
+  } else {
+    symbol = "_headers";
+  }
+
   //
   // Prevent thrown errors when we want to set the same header again using our
   // own `setHeader` method.
   //
-  var described = Object.getOwnPropertyDescriptor(res._headers, key);
+  var described = Object.getOwnPropertyDescriptor(res[symbol], key);
 
   if (described && !described.configurable) {
     return false;
@@ -42,7 +56,7 @@ module.exports = function setHeader(res, name, value) {
   // a private `_headers` object. We're going to override the value that got set
   // using the Object.defineProperty so nobody can set the same header again.
   //
-  Object.defineProperty(res._headers, key, {
+  Object.defineProperty(res[symbol], key, {
     configurable: false,
     enumerable: true,
 
@@ -50,7 +64,7 @@ module.exports = function setHeader(res, name, value) {
     // Return the value that got set using our `setHeader` method.
     //
     get: function get() {
-      return value;
+      return (symbols.length == 1 ? [ key, value ] : value);
     },
 
     //
