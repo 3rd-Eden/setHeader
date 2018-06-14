@@ -16,6 +16,8 @@ happening by making the set property `readOnly`.
 npm install --save setheader
 ```
 
+Please note, that starting since Node 10, this method no longer works.
+
 ## Usage
 
 The following snippet should make it clear:
