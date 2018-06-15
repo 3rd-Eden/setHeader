@@ -27,7 +27,9 @@ module.exports = function setHeader(res, name, value) {
   //
   res.setHeader(name, value);
 
-  var symbols = (typeof Object.getOwnPropertySymbols == "function" ? Object.getOwnPropertySymbols(res) : []);
+  var symbols = Object.getOwnPropertySymbols
+    ? Object.getOwnPropertySymbols(res)
+    : [];
   var symbol;
 
   if (symbols.length) {
@@ -38,7 +40,7 @@ module.exports = function setHeader(res, name, value) {
       }
     }
   } else {
-    symbol = "_headers";
+    symbol = '_headers';
   }
 
   //
@@ -64,7 +66,7 @@ module.exports = function setHeader(res, name, value) {
     // Return the value that got set using our `setHeader` method.
     //
     get: function get() {
-      return (symbols.length == 1 ? [ key, value ] : value);
+      return typeof symbol === 'symbol' ? [key, value] : value;
     },
 
     //
