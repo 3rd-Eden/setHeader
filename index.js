@@ -34,7 +34,9 @@ module.exports = function setHeader(res, name, value) {
 
   if (symbols.length) {
     for (var i = 0; i < symbols.length; i++) {
-      if (String(symbols[i]) === 'Symbol(outHeadersKey)') {
+      var str = String(symbols[i]);
+
+      if (str === 'Symbol(outHeadersKey)' || str === 'Symbol(kOutHeaders)') {
         symbol = symbols[i];
         break;
       }
