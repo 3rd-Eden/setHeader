@@ -14,6 +14,12 @@ var debug = require('diagnostics')('setHeader');
  * @returns {Boolean} The header was set.
  * @api public
  */
+
+//
+// predefined symbols
+//
+var possibleSymbols = ['Symbol(outHeadersKey)', 'Symbol(kOutHeaders)'];
+
 module.exports = function setHeader(res, name, value) {
   if (!res || !name || !value || res._header) {
     return false;
@@ -34,14 +40,19 @@ module.exports = function setHeader(res, name, value) {
 
   if (symbols.length) {
     for (var i = 0; i < symbols.length; i++) {
-      if (String(symbols[i]) === 'Symbol(outHeadersKey)') {
+      if (~possibleSymbols.indexOf(String(symbols[i]))) {
         symbol = symbols[i];
         break;
       }
     }
   } else {
-    symbol = '_headers';
+    symbol = '_headers'; // TODO: deprecated in v12!
   }
+
+  //
+  // Prevent thrown errors when removed _headers
+  //
+  if (!res[symbol]) return false;
 
   //
   // Prevent thrown errors when we want to set the same header again using our
