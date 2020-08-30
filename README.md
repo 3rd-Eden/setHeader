@@ -1,6 +1,6 @@
 # setHeader
 
-[![Build Status](https://travis-ci.org/3rd-Eden/setHeader.png?branch=master)](https://travis-ci.org/3rd-Eden/setHeader)
+[![Build Status](https://travis-ci.org/3rd-Eden/setHeader.svg?branch=master)](https://travis-ci.org/3rd-Eden/setHeader)
 
 This module is an alternate way of setting headers in your node applications.
 Node doesn't have any protection or ways to prevent your previously set headers
