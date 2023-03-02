@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "assume": "^2.1.0",
-    "mocha": "5.x.x",
+    "mocha": "10.x.x",
     "pre-commit": "1.x.x",
     "request": "2.x.x"
   }
